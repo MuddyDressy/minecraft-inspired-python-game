@@ -455,6 +455,12 @@ def loadgame():
                     globals()[f"inventoryslot{i}"] = data["inventory"][i-1]
                 pet = data["pet"]
                 justfound = data["justfound"]
+                houselevel = data["houselevel"]
+                diamondflowerstatus = data["diamondflowerstatus"]
+                hatslot = data["hatslot"]
+                shoesslot = data["shoesslot"]
+                diamondbouquetstatus = data["diamondbouquetstatus"]
+                debug = data["debug"]
             print("Progress loaded.")
         except FileNotFoundError:
             print("File not found. Please check the file path and try again.")
@@ -468,7 +474,14 @@ def savegame():
             json.dump({
                 "inventory": [globals()[f"inventoryslot{i}"] for i in range(1, 21)],
                 "pet": pet,
-                "justfound": justfound
+                "justfound": justfound,
+                "houselevel": houselevel,
+                "diamondflowerstatus": diamondflowerstatus,
+                "hatslot": hatslot,
+                "shoesslot": shoesslot,
+                "diamondbouquetstatus": diamondbouquetstatus,
+                "diamondflowerstatus": diamondflowerstatus,
+                "debug": debug
             }, f)
         print("Progress saved.")
 
