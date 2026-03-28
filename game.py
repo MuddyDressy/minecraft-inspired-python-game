@@ -62,6 +62,8 @@ def main():
             print("reset pet - resets your pet to none and releases your pet if you have one")
             print("reset inventory - resets your inventory and makes all inventory slots empty")
             print("reset all - resets all progress, including pet, house level, inventory, and all other progress")
+            print("debug - toggles debug mode, which shows debug commands and allows you to use debug commands if it is on")
+            print("giveitem [name] - gives you an item, only works in debug mode")
         print("hat - shows your hat")
         print("shoes - shows your shoes")
     elif whatdoyoudo.startswith("inventory "): # inventory [1-20] - shows your inventory
@@ -309,6 +311,7 @@ def main():
                             crafting("wood", "ruby ore", "ruby pickaxe") or
                             crafting("wood", "mythril ore", "mythril pickaxe") or
                             crafting("wood", "adamantite ore", "adamantite pickaxe") or
+                            crafting("pi", "pi", "this line of code is pi cause this is the 314th line") or
                             crafting("a rabbit", "gem", "a magic rabbit") or
                             crafting("flower", "flower", "bouquet") or
                             crafting("rock", "rock", "boulder") or
@@ -349,37 +352,43 @@ def main():
     elif whatdoyoudo == "load": # load - loads a save
         loadgame()
     elif whatdoyoudo == "reset diamond bouquet": # reset diamond bouquet - resets the diamond bouquet and makes the diamond flower unactive (debug command)
-        diamondbouquetstatus = False
-        diamondflowerstatus = False
-        print("diamond bouquet reset and diamond flower is now unactive. (if you even had the diamond bouquet active)")
+        if debug:
+            diamondbouquetstatus = False
+            diamondflowerstatus = False
+            print("diamond bouquet reset and diamond flower is now unactive. (if you even had the diamond bouquet active)")
     elif whatdoyoudo == "reset diamond flower": # reset diamond flower - resets the diamond flower and makes it unactive (debug command)
-        diamondflowerstatus = False
-        print("diamond flower reset and is now unactive. (if you even had the diamond flower active)")
+        if debug:
+            diamondflowerstatus = False
+            print("diamond flower reset and is now unactive. (if you even had the diamond flower active)")
     elif whatdoyoudo == "reset house": # reset house - resets your house level to 0 and makes you have no house (debug command)
-        houselevel = 0
-        print("house reset, you now have no house. (if you even had a house)")
+        if debug:
+            houselevel = 0
+            print("house reset, you now have no house. (if you even had a house)")
     elif whatdoyoudo == "reset pet": # reset pet - resets your pet to none and releases your pet if you have one (debug command)
-        pet = "none"
-        print("pet reset, you now have no pet. (if you even had a pet)")
+        if debug:
+            pet = "none"
+            print("pet reset, you now have no pet. (if you even had a pet)")
     elif whatdoyoudo == "reset inventory": # reset inventory - resets your inventory and makes all inventory slots empty (debug command)
-        for i in range(1, 21):
-            globals()[f"inventoryslot{i}"] = "empty"
-        print("inventory reset, all inventory slots are now empty.")
+        if debug:
+            for i in range(1, 21):
+                globals()[f"inventoryslot{i}"] = "empty"
+            print("inventory reset, all inventory slots are now empty.")
     elif whatdoyoudo == "reset all": # reset all - resets all progress, including pet, house level, inventory, and all other progress (debug command)
-        pet = "none"
-        houselevel = 0
-        justfound = "nothing"
-        item1name = ""
-        item2name = ""
-        item1 = None
-        item2 = None
-        diamondflowerstatus = False
-        hatslot = "empty"
-        shoesslot = "empty"
-        diamondbouquetstatus = False
-        for i in range(1, 21):
-            globals()[f"inventoryslot{i}"] = "empty"
-        print("all progress reset, pet, house level, inventory, and all other progress is now reset.")
+        if debug:
+            pet = "none"
+            houselevel = 0
+            justfound = "nothing"
+            item1name = ""
+            item2name = ""
+            item1 = None
+            item2 = None
+            diamondflowerstatus = False
+            hatslot = "empty"
+            shoesslot = "empty"
+            diamondbouquetstatus = False
+            for i in range(1, 21):
+                globals()[f"inventoryslot{i}"] = "empty"
+            print("all progress reset, pet, house level, inventory, and all other progress is now reset.")
     elif whatdoyoudo == "hat": # hat - shows your hat
         if hatslot == "empty":
             print("You are not wearing a hat.")
@@ -406,6 +415,34 @@ def main():
         else:
             print("You find a lake, type 'pickup' to collect some water.")
             justfound = "bottle of water"
+    elif whatdoyoudo == "giveitem [name]": # gives a item to you no mater what (debug command)
+        if debug:
+            itemname = whatdoyoudo[11:]
+            justfound = itemname
+            if justfound == "nothing":
+                print("There is nothing to pick up.")
+            elif justfound == "evil ore":
+                print("You pick up evil ore")
+                print("what do you want to do? (type 'help' for a list of commands): ")
+                time.sleep(2)
+                print("you cant seem to type...")
+                time.sleep(1)
+                print("the evil ore fills you with darkness and you lose all your items and die")
+                if diamondflowerstatus and pet != "none":
+                    print("but your pet revives you because of the diamond flower")
+                else:
+                    sys.exit()
+            else:
+                for i in range(1, 21):
+                    if globals().get(f"inventoryslot{i}") == "empty":
+                        globals()[f"inventoryslot{i}"] = justfound
+                        print(f"You pick up the {justfound}.")
+                        print(f"it was placed in slot {i}")
+                        justfound = "nothing"
+                        break
+                else:
+                    print("Your inventory is full. You can't get this item.")
+            
     else: # if the command is not recognized, show an error message
         print("Invalid command. Type 'help' for a list of commands.")
 def mine(pickaxetype):
@@ -452,15 +489,15 @@ def loadgame():
             with open(loadwhere, "r") as f:
                 data = json.load(f)
                 for i in range(1, 21):
-                    globals()[f"inventoryslot{i}"] = data["inventory"][i-1]
-                pet = data["pet"]
-                justfound = data["justfound"]
-                houselevel = data["houselevel"]
-                diamondflowerstatus = data["diamondflowerstatus"]
-                hatslot = data["hatslot"]
-                shoesslot = data["shoesslot"]
-                diamondbouquetstatus = data["diamondbouquetstatus"]
-                debug = data["debug"]
+                    globals()[f"inventoryslot{i}"] = data.get("inventory", ["empty"]*20)[i-1]
+                pet = data.get("pet", "none")
+                justfound = data.get("justfound", "nothing")
+                houselevel = data.get("houselevel", 0)
+                diamondflowerstatus = data.get("diamondflowerstatus", False)
+                hatslot = data.get("hatslot", "empty")
+                shoesslot = data.get("shoesslot", "empty")
+                diamondbouquetstatus = data.get("diamondbouquetstatus", False)
+                debug = data.get("debug", False)
             print("Progress loaded.")
         except FileNotFoundError:
             print("File not found. Please check the file path and try again.")
