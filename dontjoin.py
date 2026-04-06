@@ -795,8 +795,5 @@ def draw():
     draw = canvas
 
 loadgame()
-if input("you must know the secret code to play... type it here to play: ") == "theyhavefoundus...":
-    while True:
-        main()
-else:
-    print("Incorrect code. Access denied.")
+while True:
+    main()
