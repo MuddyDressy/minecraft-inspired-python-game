@@ -65,6 +65,17 @@ items = {
     "mythril pickaxe": 50.8,
     "adamantite pickaxe": 76,
 
+    ## Swords
+
+    "stone sword": 0.5,
+    "iron sword": 1.4,
+    "gold sword": 5.4,
+    "diamond sword": 10.5,
+    "emerald sword": 15.5,
+    "ruby sword": 20.6,
+    "mythril sword": 50.8,
+    "adamantite sword": 76,
+
     ## Pets
 
     # pets are unbuyable and unsellable (yeah... i know you think the pets should be buyable and sellable at like $1000 but i think that would break the economy of the game so thats why i put them in a diffrent list)
@@ -81,6 +92,8 @@ items = {
     "bottle of water": 0.1,
     "paper": 5,
     "crafting recipe book": 15.7,
+    "Goblin Key": 20,
+    "Goblin Crown": 3000,
 
     ## Minerals/Ores
 
@@ -331,16 +344,26 @@ def main():
             elif item == "adamantite sword":
                 print("you swing around your adamantite sword, it feels very powerful and you feel like you could defeat any enemy with it.")
             elif item == "Goblin Key":
-                print("You use the Goblin Key to open a key to the Goblin King's Domain...")
-                time.sleep(2)
-                print("Goblin King: You are NOT a Goblin, You cannot stay here!")
-                time.sleep(0.5)
-                print("Goblin King: If you want to come out alive, you must defeat me in a battle!")
-                time.sleep(0.5)
-                print("Goblin King: But First you will fight my minions!")
-                time.sleep(0.5)
-                print("Fight Initiates!")
-                fight("Goblin Group", 75, 7, "Dog Pile", 10, "Multi-Stab", 13, "Coin Pile Dump", 90, "None")
+                if GoblinKingAlive:
+                    print("You use the Goblin Key to open a key to the Goblin King's Domain...")
+                    time.sleep(2)
+                    print("Goblin King: You are NOT a Goblin, You cannot stay here!")
+                    time.sleep(0.5)
+                    print("Goblin King: If you want to come out alive, you must defeat me in a battle!")
+                    time.sleep(0.5)
+                    print("Goblin King: But First you will fight my minions!")
+                    time.sleep(0.5)
+                    print("Fight Initiates!")
+                    fight("Goblin Group", 75, 7, "Dog Pile", 10, "Multi-Stab", 13, "Coin Pile Dump", 90, "None")
+                    print("Goblin King: Huh, not bad for a non-goblin, but you still have to fight me if you want to stay here!")
+                    fight("Goblin King", 150, 15, "Sword Slash", 20, "Ground Pound", 25, "Summon Minions", 200, "Goblin Crown")
+                    print("Goblin King: AHHH NOOO *SCREAMING IN PAIN* bleh.")
+                    print("You left the Goblin King's Domain with the Goblin Crown, which is worth a lot of money!")
+                else:
+                    print("The Goblin King is already dead, Key has no use now.")
+            elif item == "Goblin Crown":
+                print("You put on the Goblin Crown and feel an immense power coursing through your veins. You have become the new Goblin King!")
+                hatslot = "Goblin Crown"
             else:
                 print(f"the item you are using is unknown, the item is being deleted incase you cheated it in or something.")
                 justfound = "nothing"
@@ -692,6 +715,10 @@ def main():
                 fight("Player", 30, 6, "Punch", 8, "Kick", 10, "Headbutt", 0, "None")
             elif enemy == "Goblin".lower():
                 fight("Goblin", 25, 4, "Slam", 6, "Stab", 8, "Coin Throw", 30, "Goblin Key")
+            elif enemy == "Goblin King".lower():
+                fight("Goblin King", 150, 15, "Sword Slash", 20, "Ground Pound", 25, "Summon Minions", 200, "Goblin Crown")
+            elif enemy == "Goblin Group".lower():
+                fight("Goblin Group", 75, 7, "Dog Pile", 10, "Multi-Stab", 13, "Coin Pile Dump", 90, "None")
             else:
                 print(f"{enemy} not found.")
     else: # if the command is not recognized, show an error message
