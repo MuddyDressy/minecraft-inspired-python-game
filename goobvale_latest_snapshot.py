@@ -137,6 +137,7 @@ def main():
             print("givemoney [amount] - gives you money")
             print("draw - lets you draw on a piece of paper")
             print("seedrawing - shows your drawing if you have drawn on the paper")
+            print("fight [enemy name] - fights an enemy (you can only fight enemies that are in the fight function, and you have to type the name exactly right)")
         print("hat - shows your hat")
         print("shoes - shows your shoes")
         print("money - shows your money")
@@ -144,6 +145,7 @@ def main():
         print("shop - buy and sell items")
         print("value [item name] - shows the value of an item, only works if the item is in the shop")
         print("shopitems - shows a list of items in the shop")
+        print("wander - wander around, maybe you'll find something")
     elif whatdoyoudo.startswith("inventory "): # inventory [1-20] - shows your inventory
         slot = whatdoyoudo.split(" ")[1]
         if slot.isdigit() and 1 <= int(slot) <= 20:
@@ -303,14 +305,14 @@ def main():
             elif item == "crafting recipe book":
                 print("the crafting recipe book has the following crafting recipes in it:")
                 print("wood + gem = magic wand")
-                print("wood + rock = stone pickaxe")
-                print("wood + iron ore = iron pickaxe")
-                print("wood + diamond ore = diamond pickaxe")
-                print("wood + gold ore = gold pickaxe")
-                print("wood + emerald ore = emerald pickaxe")
-                print("wood + ruby ore = ruby pickaxe")
-                print("wood + mythril ore = mythril pickaxe")
-                print("wood + adamantite ore = adamantite pickaxe")
+                print("wood + rock = stone pickaxe or stone sword (choose one when crafting)")
+                print("wood + iron ore = iron pickaxe or iron sword (choose one when crafting)")
+                print("wood + diamond ore = diamond pickaxe or diamond sword (choose one when crafting)")
+                print("wood + gold ore = gold pickaxe or gold sword (choose one when crafting)")
+                print("wood + emerald ore = emerald pickaxe or emerald sword (choose one when crafting)")
+                print("wood + ruby ore = ruby pickaxe or ruby sword (choose one when crafting)")
+                print("wood + mythril ore = mythril pickaxe or mythril sword (choose one when crafting)")
+                print("wood + adamantite ore = adamantite pickaxe or adamantite sword (choose one when crafting)")
                 print("a rabbit + gem = a magic rabbit")
                 print("flower + flower = bouquet")
                 print("rock + rock = boulder")
@@ -324,7 +326,21 @@ def main():
                 print("diamond flower + diamond flower = diamond bouquet")
                 print("wood + bottle of water = paper")
                 print("wood + paper = crafting recipe book")
-
+            elif item == "stone sword" or item == "iron sword" or item == "gold sword" or item == "diamond sword" or item == "emerald sword" or item == "ruby sword" or item == "mythril sword":
+                print("you swing around your sword thinking about how cool it is.")
+            elif item == "adamantite sword":
+                print("you swing around your adamantite sword, it feels very powerful and you feel like you could defeat any enemy with it.")
+            elif item == "Goblin Key":
+                print("You use the Goblin Key to open a key to the Goblin King's Domain...")
+                time.sleep(2)
+                print("Goblin King: You are NOT a Goblin, You cannot stay here!")
+                time.sleep(0.5)
+                print("Goblin King: If you want to come out alive, you must defeat me in a battle!")
+                time.sleep(0.5)
+                print("Goblin King: But First you will fight my minions!")
+                time.sleep(0.5)
+                print("Fight Initiates!")
+                fight("Goblin Group", 75, 7, "Dog Pile", 10, "Multi-Stab", 13, "Coin Pile Dump", 90, "None")
             else:
                 print(f"the item you are using is unknown, the item is being deleted incase you cheated it in or something.")
                 justfound = "nothing"
@@ -434,28 +450,28 @@ def main():
                         item1name = globals().get(f"inventoryslot{item1}")
                         item2name = globals().get(f"inventoryslot{item2}")
                         crafted_any = (
-                            crafting("wood", "gem", "magic wand") or
-                            crafting("wood", "rock", "stone pickaxe") or
-                            crafting("wood", "iron ore", "iron pickaxe") or
-                            crafting("wood", "diamond ore", "diamond pickaxe") or
-                            crafting("wood", "gold ore", "gold pickaxe") or
-                            crafting("wood", "emerald ore", "emerald pickaxe") or
-                            crafting("wood", "ruby ore", "ruby pickaxe") or
-                            crafting("wood", "mythril ore", "mythril pickaxe") or
-                            crafting("wood", "adamantite ore", "adamantite pickaxe") or
-                            crafting("a rabbit", "gem", "a magic rabbit") or
-                            crafting("flower", "flower", "bouquet") or
-                            crafting("rock", "rock", "boulder") or
-                            crafting("gem", "gem", "big gem") or
-                            crafting("wood", "glass", "glasses") or
-                            crafting("a rabbit", "glasses", "a cool rabbit") or
-                            crafting("a magic rabbit", "glasses", "a cool magic rabbit") or
-                            crafting("coal", "sand", "glass") or
-                            crafting("a cool rabbit", "gem", "a cool magic rabbit") or
-                            crafting("diamond ore", "flower", "diamond flower") or
-                            crafting("diamond flower", "diamond flower", "diamond bouquet") or
-                            crafting("wood", "bottle of water", "paper") or
-                            crafting("wood", "paper", "crafting recipe book")
+                            crafting("wood", "gem", "magic wand", "none") or
+                            crafting("wood", "rock", "stone pickaxe", "stone sword") or
+                            crafting("wood", "iron ore", "iron pickaxe", "iron sword") or
+                            crafting("wood", "diamond ore", "diamond pickaxe", "diamond sword") or
+                            crafting("wood", "gold ore", "gold pickaxe", "gold sword") or
+                            crafting("wood", "emerald ore", "emerald pickaxe", "emerald sword") or
+                            crafting("wood", "ruby ore", "ruby pickaxe", "ruby sword") or
+                            crafting("wood", "mythril ore", "mythril pickaxe", "mythril sword") or
+                            crafting("wood", "adamantite ore", "adamantite pickaxe", "adamantite sword") or
+                            crafting("a rabbit", "gem", "a magic rabbit", "none") or
+                            crafting("flower", "flower", "bouquet", "none") or
+                            crafting("rock", "rock", "boulder", "none") or
+                            crafting("gem", "gem", "big gem", "none") or
+                            crafting("wood", "glass", "glasses", "none") or
+                            crafting("a rabbit", "glasses", "a cool rabbit", "none") or
+                            crafting("a magic rabbit", "glasses", "a cool magic rabbit", "none") or
+                            crafting("coal", "sand", "glass", "none") or
+                            crafting("a cool rabbit", "gem", "a cool magic rabbit", "none") or
+                            crafting("diamond ore", "flower", "diamond flower", "none") or
+                            crafting("diamond flower", "diamond flower", "diamond bouquet", "none") or
+                            crafting("wood", "bottle of water", "paper", "none") or
+                            crafting("wood", "paper", "crafting recipe book", "none")
                         )
                         if not crafted_any:
                             print("These items cannot be crafted together.")
@@ -649,6 +665,35 @@ def main():
         print("the shop has the following items for sale:")
         for item, price in items.items():
             print(f"{item}: {price} money")
+    elif whatdoyoudo == "wander": # wander - wander around, maybe you'll find something
+        print("you wander around")
+        event = random.randint(1, 100)
+        if event <= 40:
+            print("nothing intresting happens.")
+        elif event >= 90:
+            print("you find some money on the ground!")
+            moneyfound = random.uniform(0.5, 5.0)
+            money += moneyfound
+            print(f"You Got {round(moneyfound, 2)} money.")
+        elif event <= 60:
+            print("You find a rock on the ground! ('pickup' to pick it up)")
+            justfound = "rock"
+        elif event <= 80:
+            print("YOU FOUND A UNTAMED WOLF! Fight Initiates!")
+            fight("Wolf", 20, 5, "Bite", 6, "Charge", 8, "Jump Attack", 10, "None")
+    elif whatdoyoudo.startswith("fight"): # fight - initiates a fight with a random enemy (debug command)
+        if debug:
+            enemy = whatdoyoudo[6:]
+            if enemy == "random" or enemy == "":
+                enemy = random.choice(["Wolf", "Player", "Goblin"])
+            elif enemy == "Wolf".lower():
+                fight("Wolf", 20, 5, "Bite", 6, "Charge", 8, "Jump Attack", 10, "None")
+            elif enemy == "Player".lower():
+                fight("Player", 30, 6, "Punch", 8, "Kick", 10, "Headbutt", 0, "None")
+            elif enemy == "Goblin".lower():
+                fight("Goblin", 25, 4, "Slam", 6, "Stab", 8, "Coin Throw", 30, "Goblin Key")
+            else:
+                print(f"{enemy} not found.")
     else: # if the command is not recognized, show an error message
         print("Invalid command. Type 'help' for a list of commands.")
 
@@ -657,35 +702,79 @@ def mine(pickaxetype):
     if pickaxetype == "stone":
         minableitems = ["rock", "coal", "iron ore"]
         justfound = random.choice(minableitems)
-        print(f"You mine with your stone pickaxe and find {justfound}! you can mine it by typing 'pickup'")
+        if pet == "rabbit" and justfound == "rock":
+            mine(pickaxetype="stone")
+        else:
+            print(f"You mine with your stone pickaxe and find {justfound}! you can mine it by typing 'pickup'")
     elif pickaxetype == "iron":
         minableitems = ["rock", "coal", "iron ore", "gold ore", "diamond ore", "sapphire ore"]
         justfound = random.choice(minableitems)
-        print(f"You mine with your iron pickaxe and find {justfound}! you can mine it by typing 'pickup'")
+        if pet == "rabbit" and justfound == "rock":
+            mine(pickaxetype="iron")
+        else:
+            print(f"You mine with your iron pickaxe and find {justfound}! you can mine it by typing 'pickup'")
     elif pickaxetype == "diamond":
-        minableitems = ["rock", "coal", "iron ore", "gold ore", "diamond ore", "emerald ore", "ruby ore", "sapphire ore", "evil ore"]
+        minableitems = ["rock", "coal", "iron ore", "gold ore", "diamond ore", "emerald ore", "ruby ore", "sapphire ore", "evil ore", "goblin instead"]
         justfound = random.choice(minableitems)
-        print(f"You mine with your diamond pickaxe and find {justfound}! you can mine it by typing 'pickup'")
+        if minableitems == "goblin instead":
+            print(f"You mine with your {pickaxetype} pickaxe but instead of finding a mineral, you find a goblin! Fight Initiates!")
+            fight("Goblin", 25, 4, "Slam", 6, "Stab", 8, "Coin Throw", 30, "Goblin Key")
+        else:
+            if pet == "rabbit" and justfound == "rock":
+                mine(pickaxetype="diamond")
+            else:
+                print(f"You mine with your diamond pickaxe and find {justfound}! you can mine it by typing 'pickup'")
     elif pickaxetype == "gold":
         minableitems = ["rock", "coal", "iron ore", "gold ore", "sapphire ore"]
         justfound = random.choice(minableitems)
-        print(f"You mine with your gold pickaxe and find {justfound}! you can mine it by typing 'pickup'")
+        if pet == "rabbit" and justfound == "rock":
+            mine(pickaxetype="gold")
+        else:
+            print(f"You mine with your gold pickaxe and find {justfound}! you can mine it by typing 'pickup'")
     elif pickaxetype == "emerald":
-        minableitems = ["rock", "coal", "iron ore", "gold ore", "diamond ore", "emerald ore", "ruby ore", "sapphire ore", "evil ore"]
+        minableitems = ["rock", "coal", "iron ore", "gold ore", "diamond ore", "emerald ore", "ruby ore", "sapphire ore", "evil ore", "goblin instead"]
         justfound = random.choice(minableitems)
-        print(f"You mine with your emerald pickaxe and find {justfound}! you can mine it by typing 'pickup'")
+        if minableitems == "goblin instead":
+            print(f"You mine with your {pickaxetype} pickaxe but instead of finding a mineral, you find a goblin! Fight Initiates!")
+            fight("Goblin", 25, 4, "Slam", 6, "Stab", 8, "Coin Throw", 30, "Goblin Key")
+        else:
+            if pet == "rabbit" and justfound == "rock":
+                mine(pickaxetype="emerald")
+            else:
+                print(f"You mine with your emerald pickaxe and find {justfound}! you can mine it by typing 'pickup'")
     elif pickaxetype == "ruby":
-        minableitems = ["rock", "coal", "iron ore", "gold ore", "diamond ore", "emerald ore", "ruby ore", "sapphire ore", "evil ore", "mythril ore"]
+        minableitems = ["rock", "coal", "iron ore", "gold ore", "diamond ore", "emerald ore", "ruby ore", "sapphire ore", "evil ore", "mythril ore", "goblin instead"]
         justfound = random.choice(minableitems)
-        print(f"You mine with your ruby pickaxe and find {justfound}! you can mine it by typing 'pickup'")
+        if minableitems == "goblin instead":
+            print(f"You mine with your {pickaxetype} pickaxe but instead of finding a mineral, you find a goblin! Fight Initiates!")
+            fight("Goblin", 25, 4, "Slam", 6, "Stab", 8, "Coin Throw", 30, "Goblin Key")
+        else:
+            if pet == "rabbit" and justfound == "rock":
+                mine(pickaxetype="ruby")
+            else:
+                print(f"You mine with your ruby pickaxe and find {justfound}! you can mine it by typing 'pickup'")
     elif pickaxetype == "mythril":
-        minableitems = ["rock", "coal", "iron ore", "gold ore", "diamond ore", "emerald ore", "ruby ore", "sapphire ore", "evil ore", "mythril ore", "adamantite ore"]
+        minableitems = ["rock", "coal", "iron ore", "gold ore", "diamond ore", "emerald ore", "ruby ore", "sapphire ore", "evil ore", "mythril ore", "adamantite ore", "goblin instead"]
         justfound = random.choice(minableitems)
-        print(f"You mine with your mythril pickaxe and find {justfound}! you can mine it by typing 'pickup'")
+        if minableitems == "goblin instead":
+            print(f"You mine with your {pickaxetype} pickaxe but instead of finding a mineral, you find a goblin! Fight Initiates!")
+            fight("Goblin", 25, 4, "Slam", 6, "Stab", 8, "Coin Throw", 30, "Goblin Key")
+        else:
+            if pet == "rabbit" and justfound == "rock":
+                mine(pickaxetype="mythril")
+            else:
+                print(f"You mine with your mythril pickaxe and find {justfound}! you can mine it by typing 'pickup'")
     elif pickaxetype == "adamantite":
-        minableitems = ["rock", "coal", "iron ore", "gold ore", "diamond ore", "emerald ore", "ruby ore", "sapphire ore", "evil ore", "mythril ore", "adamantite ore"]
+        minableitems = ["rock", "coal", "iron ore", "gold ore", "diamond ore", "emerald ore", "ruby ore", "sapphire ore", "evil ore", "mythril ore", "adamantite ore", "goblin instead"]
         justfound = random.choice(minableitems)
-        print(f"You mine with your adamantite pickaxe and find {justfound}! you can mine it by typing 'pickup'")
+        if minableitems == "goblin instead":
+            print(f"You mine with your {pickaxetype} pickaxe but instead of finding a mineral, you find a goblin! Fight Initiates!")
+            fight("Goblin", 25, 5, "Slam", 6, "Stab", 8, "Coin Throw", 30, "Goblin Key")
+        else:
+            if pet == "rabbit" and justfound == "rock":
+                mine(pickaxetype="adamantite")
+            else:
+                print(f"You mine with your adamantite pickaxe and find {justfound}! you can mine it by typing 'pickup'")
 
 def loadgame():
     global pet, justfound
@@ -732,14 +821,22 @@ def savegame():
             }, f)
         print("Progress saved.")
 
-def crafting(firstitem, seconditem, resultitem):
+def crafting(firstitem, seconditem, resultitem, resultitem2):
+    finalresultitem = "none"
     global item1, item2, item1name, item2name
     if ((item1name == firstitem and
     item2name == seconditem) or
     (item1name == seconditem and
     item2name == firstitem)):
-        print(f"You crafted a {resultitem}!")
-        globals()[f"inventoryslot{item1}"] = resultitem
+        if resultitem2 == "none":
+            finalresultitem = resultitem
+        else:
+            while finalresultitem not in [resultitem, resultitem2]:
+                finalresultitem = input(f"would you like to craft this item into {resultitem2} or {resultitem}? (type the name of the item you want to craft): ")
+                if finalresultitem != resultitem and finalresultitem != resultitem2:
+                    print("Invalid choice. Please type the name of the item you want to craft.")
+        print(f"You crafted a {finalresultitem}!")
+        globals()[f"inventoryslot{item1}"] = finalresultitem
         globals()[f"inventoryslot{item2}"] = "empty"
         print(f"The crafted item has been placed in slot {item1}.")
         return True
@@ -794,6 +891,139 @@ def draw():
         draw = input("type 'draw [x] [y]' to draw on the canvas (type erase instead of draw to erase), where x is the width and y is the height from the top left corner (for example, 'draw 2 3' to draw on the 2nd column and 3rd row), type 'done' to finish: ")
     draw = canvas
 
+def fight(enemyname, enemyhealth, enemybasicattackdamage, enemybasicattackname, enemystrongattackdamage, enemystrongattackname, enemyultimateattackdamage, enemyultimateattackname, enemymoneydrop, extraitemdrop):
+    global money
+    turn = "player"
+    print(f"You are fighting a {enemyname}!")
+    playerhealth = 30
+    playerbasicattackdamage = 6
+    playerbasicattackname = "Punch"
+    playerstrongattackdamage = 8
+    playerstrongattackname = "Kick"
+    playerultimateattackdamage = 10
+    playerultimateattackname = "Headbutt"
+    ememyultimatecooldown = 0
+    playerultimatecooldown = 0
+    baseenemyhealth = enemyhealth
+    enemyconfused = False
+    while enemyhealth > 0:
+        print(f"you currently have {playerhealth} health")
+        print(f"the {enemyname} currently has {enemyhealth} health")
+        if turn == "player":
+            action = input("do you want to use your basic attack, strong attack, or ultimate attack? (basic/strong/ultimate or use [item slot] to use an item): ")
+            time.sleep(0.5)
+            if action == "basic":
+                print(f"You use {playerbasicattackname} and deal {playerbasicattackdamage} damage!")
+                enemyhealth -= playerbasicattackdamage
+                turn = "enemy"
+                playerultimatecooldown = max(0, playerultimatecooldown - 1)
+            elif action == "strong":
+                print(f"You use {playerstrongattackname} and deal {playerstrongattackdamage} damage!")
+                enemyhealth -= playerstrongattackdamage
+                turn = "enemy"
+                playerultimatecooldown = max(0, playerultimatecooldown - 1)
+            elif action == "ultimate":
+                if playerultimatecooldown > 0:
+                    print(f"Your ultimate attack is on cooldown for {playerultimatecooldown} more turns.")
+                else:
+                    print(f"You use {playerultimateattackname} and deal {playerultimateattackdamage} damage!")
+                    enemyhealth -= playerultimateattackdamage
+                    playerultimatecooldown = 3
+                    turn = "enemy"
+            elif action.startswith("use "):
+                if action[4:].isdigit() and 1 <= int(action[4:]) <= 20:
+                    itemslot = int(action[4:])
+                    itemname = globals().get(f"inventoryslot{itemslot}")
+                    if itemname == "empty":
+                        print("That slot is empty. you have no item to use in that slot.")
+                    else:
+                        print(f"You use the {itemname} in slot {itemslot}.")
+                        if itemname == "stone sword":
+                            print("The stone sword deals 8 damage!")
+                            enemyhealth -= 8
+                            turn = "enemy"
+                        elif itemname == "iron sword":
+                            print("The iron sword deals 10 damage!")
+                            enemyhealth -= 10
+                            turn = "enemy"
+                        elif itemname == "diamond sword":
+                            print("The diamond sword deals 12 damage!")
+                            enemyhealth -= 12
+                            turn = "enemy"
+                        elif itemname == "magic wand":
+                            print("The magic wand confuses the enemy and the enemy will now not take the next turn.")
+                            enemyconfused = True
+                            turn = "enemy"
+                        elif itemname == "gold sword":
+                            print("The gold sword deals 9 damage!")
+                            enemyhealth -= 9
+                            turn = "enemy"
+                        elif itemname == "emerald sword":
+                            print("The emerald sword deals 11 damage!")
+                            enemyhealth -= 11
+                            turn = "enemy"
+                        elif itemname == "ruby sword":
+                            print("The ruby sword deals 14 damage!")
+                            enemyhealth -= 13
+                            turn = "enemy"
+                        elif itemname == "mythril sword":
+                            print("The mythril sword deals 16 damage!")
+                            enemyhealth -= 14
+                            turn = "enemy"
+                        elif itemname == "adamantite sword":
+                            print("The adamantite sword deals 18 damage!")
+                            enemyhealth -= 15
+                            turn = "enemy"
+                        else:
+                            print("This item cannot be used in battle.")
+            else:
+                print("Invalid action. Please choose 'basic', 'strong', or 'ultimate' or 'use [item slot]'.")
+        elif turn == "enemy":
+            if ememyultimatecooldown > 0:
+                enemyaction = random.choice(["basic", "strong"])
+            else:
+                enemyaction = random.choice(["basic", "strong", "ultimate"])
+            time.sleep(0.5)
+            if enemyconfused:
+                print(f"The {enemyname} is confused and does not take a turn!")
+                enemyconfused = False
+                turn = "player"
+            else:
+                if enemyaction == "basic":
+                    print(f"The {enemyname} uses {enemybasicattackname} and deals {enemybasicattackdamage} damage!")
+                    playerhealth -= enemybasicattackdamage
+                    turn = "player"
+                    enemyultimatecooldown = max(0, playerultimatecooldown - 1)
+                elif enemyaction == "strong":
+                    print(f"The {enemyname} uses {enemystrongattackname} and deals {enemystrongattackdamage} damage!")
+                    playerhealth -= enemystrongattackdamage
+                    turn = "player"
+                elif enemyaction == "ultimate":
+                    print(f"The {enemyname} uses {enemyultimateattackname} and deals {enemyultimateattackdamage} damage!")
+                    playerhealth -= enemyultimateattackdamage
+                    turn = "player"
+                    enemyultimatecooldown = 3
+        if playerhealth <= 0:
+            print("You have been defeated!")
+            if diamondflowerstatus and pet != "none":
+                print("your pet cannot revive you for balancing reasons")
+                playerhealth = 30
+            else:
+                print("zzzz... oh that death was just a dream, you wake up back in the battle arena")
+                turn = "player"
+                playerhealth = 30
+                enemyhealth = baseenemyhealth
+        elif enemyhealth <= 0:
+            print(f"You have defeated the {enemyname}!")
+            if enemymoneydrop == 0:
+                print("it didnt drop any money...")
+            else:
+                print(f"it dropped {enemymoneydrop} money! (for some reason...)")
+            if extraitemdrop != "None":
+                print(f"it also dropped a {extraitemdrop}! type 'pickup' to pick it up.")
+                justfound = extraitemdrop
+            money += enemymoneydrop          
+                    
 loadgame()
 while True:
     main()
