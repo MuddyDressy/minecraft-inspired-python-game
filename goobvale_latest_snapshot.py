@@ -37,6 +37,7 @@ diamondbouquetstatus = False
 debug = False
 money = 0
 draw = "notdrawn"
+GoblinKingAlive = True
 items = {
     ## Basic Items
 
@@ -118,7 +119,7 @@ pets = [
     "a axolotl"
 ]
 def main():
-    global justfound, pet, houselevel, item1, item2, item1name, item2name, diamondflowerstatus, hatslot, shoesslot, diamondbouquetstatus, debug, money, draw
+    global justfound, pet, houselevel, item1, item2, item1name, item2name, diamondflowerstatus, hatslot, shoesslot, diamondbouquetstatus, debug, money, draw, GoblinKingAlive
     whatdoyoudo = input("what do you want to do? (type 'help' for a list of commands): ")
     if whatdoyoudo == "help": # help command, shows a list of commands
         print("help - shows this message")
