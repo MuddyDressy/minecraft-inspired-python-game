@@ -32,7 +32,7 @@ item1 = None
 item2 = None
 diamondflowerstatus = False
 hatslot = "empty"
-shoesslot = "empty"
+armorslot = "empty"
 diamondbouquetstatus = False
 debug = False
 money = 0
@@ -118,8 +118,18 @@ pets = [
     "mystics cat",
     "a axolotl"
 ]
+
+armors = {
+    "iron chestplate": 7,
+    "diamond chestplate": 12,
+    "gold chestplate": 6,
+    "emerald chestplate": 15,
+    "ruby chestplate": 17,
+    "mythril chestplate": 20,
+    "adamantite chestplate": 25
+}
 def main():
-    global justfound, pet, houselevel, item1, item2, item1name, item2name, diamondflowerstatus, hatslot, shoesslot, diamondbouquetstatus, debug, money, draw, GoblinKingAlive
+    global justfound, pet, houselevel, item1, item2, item1name, item2name, diamondflowerstatus, hatslot, armorslot, diamondbouquetstatus, debug, money, draw, GoblinKingAlive
     whatdoyoudo = input("what do you want to do? (type 'help' for a list of commands): ")
     if whatdoyoudo == "help": # help command, shows a list of commands
         print("help - shows this message")
@@ -153,7 +163,7 @@ def main():
             print("seedrawing - shows your drawing if you have drawn on the paper")
             print("fight [enemy name] - fights an enemy (you can only fight enemies that are in the fight function, and you have to type the name exactly right)")
         print("hat - shows your hat")
-        print("shoes - shows your shoes")
+        print("armor - shows your armor")
         print("money - shows your money")
         print("lake - find a lake")
         print("shop - buy and sell items")
@@ -355,11 +365,17 @@ def main():
                     print("Goblin King: But First you will fight my minions!")
                     time.sleep(0.5)
                     print("Fight Initiates!")
-                    fight("Goblin Group", 75, 7, "Dog Pile", 10, "Multi-Stab", 13, "Coin Pile Dump", 90, "None")
+                    time.sleep(0.5)
+                    fight("Goblin Group", 60, 7, "Dog Pile", 10, "Multi-Stab", 13, "Coin Pile Dump", 90, "None")
+                    time.sleep(0.5)
                     print("Goblin King: Huh, not bad for a non-goblin, but you still have to fight me if you want to stay here!")
+                    time.sleep(0.5)
                     fight("Goblin King", 150, 15, "Sword Slash", 20, "Ground Pound", 25, "Summon Minions", 200, "Goblin Crown")
+                    time.sleep(0.5)
                     print("Goblin King: AHHH NOOO *SCREAMING IN PAIN* bleh.")
+                    time.sleep(0.5)
                     print("You left the Goblin King's Domain with the Goblin Crown, which is worth a lot of money!")
+                    globals()[f"inventoryslot{slot}"] = "empty"
                 else:
                     print("The Goblin King is already dead, Key has no use now.")
             elif item == "Goblin Crown":
@@ -495,7 +511,14 @@ def main():
                             crafting("diamond ore", "flower", "diamond flower", "none") or
                             crafting("diamond flower", "diamond flower", "diamond bouquet", "none") or
                             crafting("wood", "bottle of water", "paper", "none") or
-                            crafting("wood", "paper", "crafting recipe book", "none")
+                            crafting("wood", "paper", "crafting recipe book", "none") or
+                            crafting("iron ore", "iron ore", "iron chestplate", "none") or
+                            crafting("diamond ore", "diamond ore", "diamond chestplate", "none") or
+                            crafting("gold ore", "gold ore", "gold chestplate", "none") or
+                            crafting("emerald ore", "emerald ore", "emerald chestplate", "none") or
+                            crafting("ruby ore", "ruby ore", "ruby chestplate", "none") or
+                            crafting("mythril ore", "mythril ore", "mythril chestplate", "none") or
+                            crafting("adamantite ore", "adamantite ore", "adamantite chestplate", "none")
                         )
                         if not crafted_any:
                             print("These items cannot be crafted together.")
@@ -517,7 +540,8 @@ def main():
                 justfound = pet
                 pet = "none"
     elif whatdoyoudo == "exit": # exit - exits the game
-        print("Thanks for playing!")  
+        print("Thanks for playing!")
+        save()
         sys.exit()
     elif whatdoyoudo == "save": # save - saves the game
         savegame()
@@ -556,7 +580,7 @@ def main():
             item2 = None
             diamondflowerstatus = False
             hatslot = "empty"
-            shoesslot = "empty"
+            armorslot = "empty"
             diamondbouquetstatus = False
             for i in range(1, 21):
                 globals()[f"inventoryslot{i}"] = "empty"
@@ -566,11 +590,11 @@ def main():
             print("You are not wearing a hat.")
         else:
             print(f"You are wearing {hatslot} as a hat.")
-    elif whatdoyoudo == "shoes": # shoes - shows your shoes
-        if shoesslot == "empty":
-            print("You are not wearing shoes.")
+    elif whatdoyoudo == "armor": # armor - shows your armor
+        if armorslot == "empty":
+            print("You are not wearing armor.")
         else:
-            print(f"You are wearing {shoesslot} as shoes.")
+            print(f"You are wearing {armorslot} as armor.")
     elif whatdoyoudo.startswith("debug") and whatdoyoudo != "debug secretcode123goobergoble": # incorrect debug code - shows a message saying the debug code is incorrect
         print("Incorrect debug code. Please try again.")
     elif whatdoyoudo == "debug secretcode123goobergoble": # correct debug code - toggles debug mode
@@ -713,13 +737,13 @@ def main():
             elif enemy == "Wolf".lower():
                 fight("Wolf", 20, 5, "Bite", 6, "Charge", 8, "Jump Attack", 10, "None")
             elif enemy == "Player".lower():
-                fight("Player", 30, 6, "Punch", 8, "Kick", 10, "Headbutt", 0, "None")
+                fight("Player", 30, 6, "Punch", 8, "Kick", 15, "Uppercut", 0, "None")
             elif enemy == "Goblin".lower():
                 fight("Goblin", 25, 4, "Slam", 6, "Stab", 8, "Coin Throw", 30, "Goblin Key")
             elif enemy == "Goblin King".lower():
                 fight("Goblin King", 150, 15, "Sword Slash", 20, "Ground Pound", 25, "Summon Minions", 200, "Goblin Crown")
             elif enemy == "Goblin Group".lower():
-                fight("Goblin Group", 75, 7, "Dog Pile", 10, "Multi-Stab", 13, "Coin Pile Dump", 90, "None")
+                fight("Goblin Group", 60, 6, "Dog Pile", 9, "Multi-Stab", 12, "Coin Pile Dump", 90, "None")
             else:
                 print(f"{enemy} not found.")
     else: # if the command is not recognized, show an error message
@@ -744,7 +768,7 @@ def mine(pickaxetype):
     elif pickaxetype == "diamond":
         minableitems = ["rock", "coal", "iron ore", "gold ore", "diamond ore", "emerald ore", "ruby ore", "sapphire ore", "evil ore", "goblin instead"]
         justfound = random.choice(minableitems)
-        if minableitems == "goblin instead":
+        if justfound == "goblin instead":
             print(f"You mine with your {pickaxetype} pickaxe but instead of finding a mineral, you find a goblin! Fight Initiates!")
             fight("Goblin", 25, 4, "Slam", 6, "Stab", 8, "Coin Throw", 30, "Goblin Key")
         else:
@@ -762,7 +786,7 @@ def mine(pickaxetype):
     elif pickaxetype == "emerald":
         minableitems = ["rock", "coal", "iron ore", "gold ore", "diamond ore", "emerald ore", "ruby ore", "sapphire ore", "evil ore", "goblin instead"]
         justfound = random.choice(minableitems)
-        if minableitems == "goblin instead":
+        if justfound == "goblin instead":
             print(f"You mine with your {pickaxetype} pickaxe but instead of finding a mineral, you find a goblin! Fight Initiates!")
             fight("Goblin", 25, 4, "Slam", 6, "Stab", 8, "Coin Throw", 30, "Goblin Key")
         else:
@@ -773,7 +797,7 @@ def mine(pickaxetype):
     elif pickaxetype == "ruby":
         minableitems = ["rock", "coal", "iron ore", "gold ore", "diamond ore", "emerald ore", "ruby ore", "sapphire ore", "evil ore", "mythril ore", "goblin instead"]
         justfound = random.choice(minableitems)
-        if minableitems == "goblin instead":
+        if justfound == "goblin instead":
             print(f"You mine with your {pickaxetype} pickaxe but instead of finding a mineral, you find a goblin! Fight Initiates!")
             fight("Goblin", 25, 4, "Slam", 6, "Stab", 8, "Coin Throw", 30, "Goblin Key")
         else:
@@ -784,7 +808,7 @@ def mine(pickaxetype):
     elif pickaxetype == "mythril":
         minableitems = ["rock", "coal", "iron ore", "gold ore", "diamond ore", "emerald ore", "ruby ore", "sapphire ore", "evil ore", "mythril ore", "adamantite ore", "goblin instead"]
         justfound = random.choice(minableitems)
-        if minableitems == "goblin instead":
+        if justfound == "goblin instead":
             print(f"You mine with your {pickaxetype} pickaxe but instead of finding a mineral, you find a goblin! Fight Initiates!")
             fight("Goblin", 25, 4, "Slam", 6, "Stab", 8, "Coin Throw", 30, "Goblin Key")
         else:
@@ -795,7 +819,7 @@ def mine(pickaxetype):
     elif pickaxetype == "adamantite":
         minableitems = ["rock", "coal", "iron ore", "gold ore", "diamond ore", "emerald ore", "ruby ore", "sapphire ore", "evil ore", "mythril ore", "adamantite ore", "goblin instead"]
         justfound = random.choice(minableitems)
-        if minableitems == "goblin instead":
+        if justfound == "goblin instead":
             print(f"You mine with your {pickaxetype} pickaxe but instead of finding a mineral, you find a goblin! Fight Initiates!")
             fight("Goblin", 25, 5, "Slam", 6, "Stab", 8, "Coin Throw", 30, "Goblin Key")
         else:
@@ -820,10 +844,11 @@ def loadgame():
                 houselevel = data.get("houselevel", 0)
                 diamondflowerstatus = data.get("diamondflowerstatus", False)
                 hatslot = data.get("hatslot", "empty")
-                shoesslot = data.get("shoesslot", "empty")
+                armorslot = data.get("armorslot", "empty")
                 diamondbouquetstatus = data.get("diamondbouquetstatus", False)
                 debug = data.get("debug", False)
                 money = data.get("money", 0)
+                GoblinKingAlive = data.get("GoblinKingAlive", True)
             print("Progress loaded.")
         except FileNotFoundError:
             print("File not found. Please check the file path and try again.")
@@ -841,11 +866,12 @@ def savegame():
                 "houselevel": houselevel,
                 "diamondflowerstatus": diamondflowerstatus,
                 "hatslot": hatslot,
-                "shoesslot": shoesslot,
+                "armorslot": armorslot,
                 "diamondbouquetstatus": diamondbouquetstatus,
                 "diamondflowerstatus": diamondflowerstatus,
                 "debug": debug,
-                "money": money
+                "money": money,
+                "GoblinKingAlive": GoblinKingAlive
             }, f)
         print("Progress saved.")
 
@@ -932,13 +958,16 @@ def fight(enemyname, enemyhealth, enemybasicattackdamage, enemybasicattackname, 
     playerultimateattackname = "Headbutt"
     ememyultimatecooldown = 0
     playerultimatecooldown = 0
+    petultimatecooldown = 0
     baseenemyhealth = enemyhealth
+    if armor in armors:
+        playerhealth += armors[armor]
     enemyconfused = False
     while enemyhealth > 0:
         print(f"you currently have {playerhealth} health")
         print(f"the {enemyname} currently has {enemyhealth} health")
         if turn == "player":
-            action = input("do you want to use your basic attack, strong attack, or ultimate attack? (basic/strong/ultimate or use [item slot] to use an item): ")
+            action = input("do you want to use your basic attack, strong attack, ultimate attack or talk to the enemy? (basic/strong/ultimate/talk or use [item slot] to use an item and exit to leave the game): ")
             time.sleep(0.5)
             if action == "basic":
                 print(f"You use {playerbasicattackname} and deal {playerbasicattackdamage} damage!")
@@ -958,6 +987,24 @@ def fight(enemyname, enemyhealth, enemybasicattackdamage, enemybasicattackname, 
                     enemyhealth -= playerultimateattackdamage
                     playerultimatecooldown = 3
                     turn = "enemy"
+            elif action == "exit":
+                print("Thanks for playing! (saving will not save your fight progress, only your overall game progress, so if you load your save after exiting, you will have to get the fight again but you will keep all your items, pets, house level, and other progress)")
+                save()
+                sys.exit()
+            elif action == "talk":
+                print(f"You try to talk to the {enemyname}")
+                if enemyname == "Goblin":
+                    print("The Goblin takes it as a threat and says 'You think you can talk your way out of this? YOU'RE GONNA DIE KID' and continues to fight you.")
+                elif enemyname == "Goblin King":
+                    print("The Goblin King thinks your stupid and says 'This is a fight to the death, only 1 comes out alive and your gonna be the one that dies, you cant talk your way out of a fight with the Goblin King' and continues to fight you.")
+                elif enemyname == "Goblin Group":
+                    print("You talk ask them a very controversial question, they come out with diffrent answers and fight each other, hurting other goblins.")
+                    enemyhealth -= 7
+                elif enemyname == "Wolf":
+                    print("The Wolf looks at you realizing you are not a threat, you tame the wolf (use 'pickup' to pick it up then 'use [item slot]' to make it your pet).")
+                    justfound = "A Tamed Wolf"
+                else:
+                    print(f"You try to talk to the {enemyname}, but it just has a identity crisis then goes back to fighting you like normal.")
             elif action.startswith("use "):
                 if action[4:].isdigit() and 1 <= int(action[4:]) <= 20:
                     itemslot = int(action[4:])
@@ -1002,6 +1049,27 @@ def fight(enemyname, enemyhealth, enemybasicattackdamage, enemybasicattackname, 
                             print("The adamantite sword deals 18 damage!")
                             enemyhealth -= 15
                             turn = "enemy"
+                        elif itemname == "A Tamed Wolf" or int(action[4:]) == "pet" and pet == "A Tamed Wolf":
+                            print("You send your tamed wolf to attack the enemy, it deals 7 damage!")
+                            if petultimatecooldown > 0:
+                                petaction = random.choice(["basic", "strong"])
+                            else:
+                                petaction = random.choice(["basic", "strong", "ultimate"])
+                            if enemyaction == "basic":
+                                print(f"The Tamed Wolf uses Bite and deals 5 damage!")
+                                enemyhealth -= 5
+                                turn = "enemy"
+                                enemyultimatecooldown = max(0, playerultimatecooldown - 1)
+                            elif enemyaction == "strong":
+                                print(f"The Tamed Wolf uses Charge and deals 6 damage!")
+                                enemyhealth -= 6
+                                turn = "enemy"
+                            elif enemyaction == "ultimate":
+                                print(f"The Tamed Wolf uses Jump Attack and deals 10 damage!")
+                                enemyhealth -= 10
+                                turn = "enemy"
+                                enemyultimatecooldown = 3
+                            turn = "enemy"
                         else:
                             print("This item cannot be used in battle.")
             else:
@@ -1041,6 +1109,9 @@ def fight(enemyname, enemyhealth, enemybasicattackdamage, enemybasicattackname, 
                 turn = "player"
                 playerhealth = 30
                 enemyhealth = baseenemyhealth
+                playerultimatecooldown = 0
+                ememyultimatecooldown = 0
+                petultimatecooldown = 0
         elif enemyhealth <= 0:
             print(f"You have defeated the {enemyname}!")
             if enemymoneydrop == 0:
