@@ -2,7 +2,6 @@ import json
 import time
 import random
 import sys
-import requests
 inventoryslot1 = "empty"
 inventoryslot2 = "empty"
 inventoryslot3 = "empty"
